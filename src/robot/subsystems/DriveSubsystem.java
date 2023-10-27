@@ -23,12 +23,28 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robotCore.Device;
 //import encoder, encoder type, and motor (PWMMotor) 
 //import constants from constant folder
+import robotCore.Encoder;
+import robotCore.PWMMotor;
+import robotCore.Encoder.EncoderType;
+import robot.Constants.DrivetrainConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   //create motor and encoder objects here
+  private final PWMMotor m_leftMotor = new PWMMotor(DrivetrainConstants.k_leftMotorPWMPin, DrivetrainConstants.k_leftMotorDirPin);
+  private final PWMMotor m_rightMotor = new PWMMotor(DrivetrainConstants.k_rightMotorPWMPin, DrivetrainConstants.k_rightMotorDirPin);
+  private final Encoder m_leftEncoder = new Encoder(EncoderType.Quadrature, DrivetrainConstants.k_leftEncoderIntPin, DrivetrainConstants.k_leftEncoderDirPin);
+  private final Encoder m_rightEncoder = new Encoder(EncoderType.Quadrature, DrivetrainConstants.k_rightEncoderIntPin, DrivetrainConstants.k_rightEncoderDirPin);
   
+  private static DriveSubsystem instance;
+
+    public static synchronized DriveSubsystem getInstance() {
+        if (instance == null) {
+            instance = new DriveSubsystem();
+        }
+        return instance;
+  }
   public DriveSubsystem() {
-      
+      m_leftEncoder.setInverted(true);
   //be sure to set inverted!
   }
 
@@ -39,8 +55,26 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   //set power here! for both motors
+  
+  public void setPower(double leftPower, double rightPower){
+    m_leftMotor.set(leftPower);
+    m_rightMotor.set(rightPower);
+  }
 
+  public double getLeftSpeed(){
+    return m_leftEncoder.getSpeed();
+}
+  public double getRightSpeed(){
+    return m_rightEncoder.getSpeed();
+}
 
+// public Encoder getLeftEncoder(){
+//   return m_leftEncoder;
+// }
+
+// public Encoder getRightEncoder(){
+//   return m_rightEncoder;
+// }
   //get your encoders here! for both motors
 
 

@@ -19,28 +19,38 @@
 package robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import robot.subsystems.FeederSubsystem;
+import robotCore.Encoder;
 //import encoder and feeder subsystem 
 
 public class CmdFeeder extends CommandBase {
 	//define stuff here, like subsystem, power, etc.
+	private FeederSubsystem feederSubsystem = FeederSubsystem.getInstance();
+	private double power;
 
-	public CmdFeeder() {
+	public CmdFeeder(FeederSubsystem m_feeder, double power) {
 		//parameters include the subsystem and the power 
-
-		addRequirements();
+		this.feederSubsystem = m_feeder;
+		this.power = power;
+		addRequirements(m_feeder);
 	}
 
 	@Override
 	public void initialize() {
-		//set power here
+		feederSubsystem.setPower(power);
 	}
 
 
 	@Override
 	public void execute() {
+		feederSubsystem.getSpeed();
 		
 	}
 
+	@Override
+	public boolean isFinished(){
+		return false;
+	}
 	//put isFinished here 
 
 	@Override
