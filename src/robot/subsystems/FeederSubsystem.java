@@ -19,21 +19,51 @@ package robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robotCore.Device;
+import robotCore.Encoder;
+import robotCore.PWMMotor;
+import robotCore.SmartMotor.SmartMotorMode;
+import robot.Constants.FeederConstants;
 //import encoder, encoder type, and motor (PWMMotor) 
 //import constants
 
 public class FeederSubsystem extends SubsystemBase {
 	//create motor and ecoder objects here
+	private PWMMotor m_Motor;
+	private Encoder m_Encoder;
 
-	public FeederSubsystem() {
+    private static FeederSubsystem instance;
 
+    public static synchronized FeederSubsystem getInstance() {
+        if (instance == null) {
+            instance = new FeederSubsystem();
+        }
+        return instance;
+    }
+	private FeederSubsystem() {
+		m_Motor = new PWMMotor(FeederConstants.k_PWMPin, FeederConstants.k_DirPin);
+		m_Encoder = new Encoder(null, FeederConstants.k_encPin1, FeederConstants.k_encPin2);
 	}
 
+	public void setPower(double power){
+		m_Motor.setControlMode(SmartMotorMode.Power);
+		m_Motor.set(power);
+	}
+
+	public void setSpeed(double speed){
+        m_Motor.setControlMode(SmartMotorMode.Speed);
+        m_Motor.set(speed);
+    }
+
+	public double getSpeed(){
+        return m_Encoder.getSpeed();
+    }
 	//set your motor power here
 
 	//get encoder value here
 
-
+	public Encoder getEncoder(){
+        return m_Encoder;
+    }
 	
 	@Override
 	public void periodic() {

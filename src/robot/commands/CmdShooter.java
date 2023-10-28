@@ -21,33 +21,40 @@ package robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 //import shooter subsystem
 //import encoder
+import robot.subsystems.ShooterSubsystem;
+import robotCore.Encoder;
 
 public class CmdShooter extends CommandBase {
     //define stuff here, like power, subsystem, etc.
+    private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
+    private double power;
 
-    public CmdShooter() {
+    public CmdShooter(ShooterSubsystem shooterSubsystem, double power) {
         //parameters include the subsystem and power
-
-
-        addRequirements();
+        this.power = power;
+        this.shooterSubsystem = shooterSubsystem;
+        addRequirements(shooterSubsystem);
     }
 
  
     @Override
     public void initialize() {
         //set power here
+        shooterSubsystem.setPower(power);
     }
 
 
     @Override
     public void execute() {
+        shooterSubsystem.getSpeed();
         //get speed of encoder here using the getEncoder() method from your subsystem
     }
 
-
+    public boolean isFinished(){
+        return false;
+    }
     //put isFinished() here 
 
- 
     @Override
     public void end(boolean interrupted) {
 
