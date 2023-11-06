@@ -19,38 +19,44 @@
 package robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import encoder 
-//import Turntable subsystem
+//import shooter subsystem
+//import encoder
+import robot.subsystems.ShooterSubsystem;
+import robot.subsystems.TurretSubsystem;
+import robotCore.Encoder;
 
 public class CmdTurntable extends CommandBase {
     //define stuff here, like power, subsystem, etc.
-    
-    public CmdTurntable() {
+    private TurretSubsystem turntableSubsystem = TurretSubsystem.getInstance();
+    private double power;
+
+    public CmdTurntable(TurretSubsystem turntableSubsystem, double power) {
         //parameters include the subsystem and power
-
-        addRequirements();
+        this.power = power;
+        this.turntableSubsystem = turntableSubsystem;
+        addRequirements(turntableSubsystem);
     }
-
-  
-    @Override
-    public void initialize() {
-
-    //set power here
-
-    }
-
-
-    @Override
-    public void execute() {
-    
-    }
-
-    //put isFinished() here
 
  
     @Override
+    public void initialize() {
+        //set power here
+        turntableSubsystem.setPower(power);
+    }
+
+    @Override
+    public void execute() {
+        turntableSubsystem.getSpeed();
+        //get speed of encoder here using the getEncoder() method from your subsystem
+    }
+
+    public boolean isFinished(){
+        return false;
+    }
+    //put isFinished() here 
+
+    @Override
     public void end(boolean interrupted) {
-    
 
     }
 }

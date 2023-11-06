@@ -1,5 +1,5 @@
 /*
- *	  Copyright (C) 2016  John H. Gaby
+ *	  Copyright (C) 2022  John H. Gaby
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -18,42 +18,46 @@
 
 package robot.subsystems;
 
+import robotCore.Encoder;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import robotCore.Device;
-import robotCore.Encoder;
+//import encoder, encoder type, and motor (PWMMotor)
+//import constantspackage robot.subsystems;
 import robotCore.Encoder.EncoderType;
 import robotCore.SmartMotor.SmartMotorMode;
 import robotCore.PWMMotor;
-import robot.Constants.ShooterConstants;
-//import constants
 
-public class ShooterSubsystem extends SubsystemBase {
-//create motor and encoder objects
+import robot.Constants.TurnTableConstants;
 
-    private PWMMotor m_motor;
-    private Encoder m_Encoder;
+public class TurretSubsystem extends SubsystemBase {
+	//create encoder and motor objects here
+	private PWMMotor m_motor;
+	private Encoder m_Encoder;
+    private static TurretSubsystem instance;
 
-    private static ShooterSubsystem instance;
-
-    public static synchronized ShooterSubsystem getInstance() {
+    public static synchronized TurretSubsystem getInstance() {
         if (instance == null) {
-            instance = new ShooterSubsystem();
+            instance = new TurretSubsystem();
         }
         return instance;
     }
 
-    private ShooterSubsystem() {
-        m_motor = new PWMMotor(ShooterConstants.k_PWMPin, ShooterConstants.k_DirPin);
-        m_Encoder = new Encoder(null, ShooterConstants.k_encoderPin1, ShooterConstants.k_encoderPin2);
-    }
+	private TurretSubsystem() {
+		m_motor = new PWMMotor(TurnTableConstants.k_PWMPin, TurnTableConstants.k_DirPin);
+		m_Encoder = new Encoder(null, TurnTableConstants.k_encoderIntPin, TurnTableConstants.k_encoderDirPin);
+	}
 
-    public void setPower(double power){
-        m_motor.setControlMode(SmartMotorMode.Power); //idk
-        m_motor.set(power);
-        
-    }
+	public void initDefaultCommand() {
 
-    public void setSpeed(double speed){
+	}
+
+	public void setPower(double power){
+		m_motor.setControlMode(SmartMotorMode.Power);
+		m_motor.set(power);
+	}
+
+	public void setSpeed(double speed){
         m_motor.setControlMode(SmartMotorMode.Speed);
         m_motor.set(speed);
     }
@@ -62,16 +66,16 @@ public class ShooterSubsystem extends SubsystemBase {
         return m_Encoder.getSpeed();
     }
 
-    public Encoder getEncoder(){
+	public Encoder getEncoder(){
         return m_Encoder;
     }
-    @Override
-    public void periodic() {
-        System.out.println();
-        // This method will be called once per scheduler run
-    }
 
-    //set power here 
+	//set power here
 
-   
+	//get encoder here
+
+	@Override
+	public void periodic() {
+		
+	}
 }

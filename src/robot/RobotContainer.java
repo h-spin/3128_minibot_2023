@@ -20,6 +20,19 @@
 package robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.team3128.common.hardware.input.NAR_Joystick;
+import robotCore.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import robot.subsystems.DriveSubsystem;
+import robot.subsystems.FeederSubsystem;
+import robot.subsystems.ShooterSubsystem;
+import robot.subsystems.TurretSubsystem;
+import robot.commands.CmdArcadeDrive;
+import robot.commands.CmdFeedAndShoot;
+import robot.commands.CmdFeeder;
+import robot.commands.CmdShooter;
+import robot.commands.CmdTurntable;
+
 //also be sure to import joystick
 //import literally everything (all subsystems and commands)
 
@@ -32,11 +45,15 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   //you know the drill, define subsystems and joystick
-
+  private DriveSubsystem driveSubsystem = DriveSubsystem.getInstance();
+  private FeederSubsystem feederSubsystem = FeederSubsystem.getInstance();
+  private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
+  private TurretSubsystem turntableSubsystem = TurretSubsystem.getInstance();
+  private NAR_Joystick joystick;
 
   public RobotContainer() {
     //everything you include here is stuff that you want the minibot to do
-    
+    configureButtonBindings();
   }
 
   /**
@@ -47,7 +64,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //configure your joystick buttons to each command here!
- 
+    
+    driveSubsystem.setDefaultCommand(new CmdArcadeDrive(driveSubsystem, joystick));
+    joystick.getButton(2).whileTrue(new CmdFeedAndShoot(feederSubsystem, shooterSubsystem, 0, 0));
+    joystick.getButton(3).whileTrue(new CmdTurntable(turntableSubsystem, 0.7));
+    joystick.getButton(4).whileTrue(new CmdTurntable(turntableSubsystem, -0.7));
   }
 
   /**
