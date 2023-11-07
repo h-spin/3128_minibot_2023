@@ -45,14 +45,8 @@ public class FeederSubsystem extends SubsystemBase {
 	}
 
 	public void setPower(double power){
-		m_Motor.setControlMode(SmartMotorMode.Power);
 		m_Motor.set(power);
 	}
-
-	public void setSpeed(double speed){
-        m_Motor.setControlMode(SmartMotorMode.Speed);
-        m_Motor.set(speed);
-    }
 
 	public double getSpeed(){
         return m_Encoder.getSpeed();

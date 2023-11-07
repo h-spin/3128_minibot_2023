@@ -39,13 +39,18 @@ public class CmdArcadeDrive extends CommandBase {
     this.joystick = joystick;
     addRequirements(driveSubsystem);
   }
-
+  @Override
+  public void initialize(){
+    
+  }
   @Override
   public void execute() {
     //get joystick's y and x here
     //pos or neg? idk!!!
     double xValue = joystick.getX();
     double yValue = joystick.getY();
+    xValue = xValue*Math.abs(xValue)*0.5;
+    yValue = yValue*Math.abs(yValue)*0.5;
     //set power here
     driveSubsystem.setPower(yValue + xValue, yValue - xValue);
   }
@@ -54,6 +59,8 @@ public class CmdArcadeDrive extends CommandBase {
   public boolean isFinished(){
     return false;
   }
+  
+  
 
   //put isFinished() here
 }

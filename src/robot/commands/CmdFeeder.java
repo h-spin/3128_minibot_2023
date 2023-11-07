@@ -55,6 +55,6 @@ public class CmdFeeder extends CommandBase {
 
 	@Override
 	public void end(boolean interrupted) {
-
+		feederSubsystem.setPower(0);
 	}
 }

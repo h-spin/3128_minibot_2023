@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 //import feeder and shooter subsystems!
 //you also need to import something extra since it's a parallel command group
 
-public class CmdFeedAndShoot extends CommandBase{
+public class CmdFeedAndShoot extends ParallelCommandGroup{
 
         private FeederSubsystem feederSubsystem = FeederSubsystem.getInstance();
         private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
@@ -19,10 +19,10 @@ public class CmdFeedAndShoot extends CommandBase{
             this.shooterSubsystem = shooterSubsystem;
             this.power1 = power1;
             this.power2 = power2;
-        }
-        public void setPower(){
-            feederSubsystem.setPower(power1);
-            shooterSubsystem.setPower(power2);
+            addCommands(
+                new CmdFeeder(feederSubsystem, power1), 
+                new CmdShooter(shooterSubsystem, power2)
+            );
         }
     }
 

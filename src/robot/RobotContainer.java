@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import robot.subsystems.DriveSubsystem;
 import robot.subsystems.FeederSubsystem;
 import robot.subsystems.ShooterSubsystem;
-import robot.subsystems.TurretSubsystem;
+import robot.subsystems.TurntableSubsystem;
 import robot.commands.CmdArcadeDrive;
 import robot.commands.CmdFeedAndShoot;
 import robot.commands.CmdFeeder;
@@ -48,7 +48,7 @@ public class RobotContainer {
   private DriveSubsystem driveSubsystem = DriveSubsystem.getInstance();
   private FeederSubsystem feederSubsystem = FeederSubsystem.getInstance();
   private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
-  private TurretSubsystem turntableSubsystem = TurretSubsystem.getInstance();
+  private TurntableSubsystem turntableSubsystem = TurntableSubsystem.getInstance();
   private NAR_Joystick joystick;
 
   public RobotContainer() {

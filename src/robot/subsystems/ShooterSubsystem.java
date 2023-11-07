@@ -47,15 +47,9 @@ public class ShooterSubsystem extends SubsystemBase {
         m_Encoder = new Encoder(null, ShooterConstants.k_encoderPin1, ShooterConstants.k_encoderPin2);
     }
 
-    public void setPower(double power){
-        m_motor.setControlMode(SmartMotorMode.Power); //idk
+    public void setPower(double power){//idk
         m_motor.set(power);
         
-    }
-
-    public void setSpeed(double speed){
-        m_motor.setControlMode(SmartMotorMode.Speed);
-        m_motor.set(speed);
     }
 
     public double getSpeed(){
