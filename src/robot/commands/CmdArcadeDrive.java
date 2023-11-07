@@ -22,10 +22,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.team3128.common.hardware.input.NAR_Joystick;
 import robot.subsystems.DriveSubsystem;
 
-
 public class CmdArcadeDrive extends CommandBase {
+  private final DriveSubsystem m_subsystem;
+  private final NAR_Joystick m_joystick;
   //define stuff like your subsystem and joystick here (we use NAR_Joystick!) (since it's drive)
-
   /**
    * Creates a new ArcadeDriveCommand.
    *
@@ -34,30 +34,28 @@ public class CmdArcadeDrive extends CommandBase {
   
   public CmdArcadeDrive(DriveSubsystem subsystem, NAR_Joystick joystick) {
     //parameters include subsystem and the joystick
-
-    addRequirements();
+    addRequirements(m_subsystem);
   }
-
 
   @Override
   public void initialize() {
-    
   }
 
 
   @Override
   public void execute() {
-
     //get joystick's y and x here and make sure they're always positive 
-
+   double y = NAR_Joystick.getY();
+   double x = NAR_Joystick.getX();
+    x = x * Math.abs(x)
+    y = y * Math.abs(y);
     //set power here
+    m_subsystem.setPower = (y + x, y - x);
   }
 
-
   //put isFinished() here
-
   @Override
-  public void end(boolean interrupted) {
-
+  public boolean isFinished(){
+    return false;
   }
 }
