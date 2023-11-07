@@ -57,6 +57,6 @@ public class CmdShooter extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-
+        shooterSubsystem.setPower(0);
     }
 }

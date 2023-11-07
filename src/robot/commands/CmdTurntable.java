@@ -22,15 +22,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 //import shooter subsystem
 //import encoder
 import robot.subsystems.ShooterSubsystem;
-import robot.subsystems.TurretSubsystem;
+import robot.subsystems.TurntableSubsystem;
 import robotCore.Encoder;
 
 public class CmdTurntable extends CommandBase {
     //define stuff here, like power, subsystem, etc.
-    private TurretSubsystem turntableSubsystem = TurretSubsystem.getInstance();
+    private TurntableSubsystem turntableSubsystem = TurntableSubsystem.getInstance();
     private double power;
 
-    public CmdTurntable(TurretSubsystem turntableSubsystem, double power) {
+    public CmdTurntable(TurntableSubsystem turntableSubsystem, double power) {
         //parameters include the subsystem and power
         this.power = power;
         this.turntableSubsystem = turntableSubsystem;

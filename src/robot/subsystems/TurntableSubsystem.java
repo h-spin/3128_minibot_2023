@@ -30,20 +30,20 @@ import robotCore.PWMMotor;
 
 import robot.Constants.TurnTableConstants;
 
-public class TurretSubsystem extends SubsystemBase {
+public class TurntableSubsystem extends SubsystemBase {
 	//create encoder and motor objects here
 	private PWMMotor m_motor;
 	private Encoder m_Encoder;
-    private static TurretSubsystem instance;
+    private static TurntableSubsystem instance;
 
-    public static synchronized TurretSubsystem getInstance() {
+    public static synchronized TurntableSubsystem getInstance() {
         if (instance == null) {
-            instance = new TurretSubsystem();
+            instance = new TurntableSubsystem();
         }
         return instance;
     }
 
-	private TurretSubsystem() {
+	private TurntableSubsystem() {
 		m_motor = new PWMMotor(TurnTableConstants.k_PWMPin, TurnTableConstants.k_DirPin);
 		m_Encoder = new Encoder(null, TurnTableConstants.k_encoderIntPin, TurnTableConstants.k_encoderDirPin);
 	}
@@ -53,14 +53,8 @@ public class TurretSubsystem extends SubsystemBase {
 	}
 
 	public void setPower(double power){
-		m_motor.setControlMode(SmartMotorMode.Power);
 		m_motor.set(power);
 	}
-
-	public void setSpeed(double speed){
-        m_motor.setControlMode(SmartMotorMode.Speed);
-        m_motor.set(speed);
-    }
 
     public double getSpeed(){
         return m_Encoder.getSpeed();
